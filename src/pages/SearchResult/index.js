@@ -30,10 +30,6 @@ const SearchResult = () => {
       <div className="list-wrapper">
         {data?.items?.map((item) => (
           <UserCard key={item?.id} data={item} />
-          // <div key={result.id}>
-          //   <h2>{result.title}</h2>
-          //   <p>{result.description}</p>
-          // </div>
         ))}
       </div>
     </div>
