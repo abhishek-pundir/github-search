@@ -1,0 +1,47 @@
+.user-card {
+    border-radius: 4px;
+    background-color: white;
+    box-shadow: 2px 5px 10px #ccc;
+    display: flex;
+    margin-bottom: 20px;
+    padding: 16px;
+    width: 30%;
+}
+
+.user-card:hover {
+    background-color: var(--hover-default);
+    cursor: pointer;
+}
+
+@media (max-width: 767px) {
+    .user-card {
+        width: 48%; /* Change to 2 columns */
+    }
+}
+  
+/* For screens smaller than 480px */
+@media (max-width: 479px) {
+    .user-card {
+        width: 100%; /* Change to 1 column */
+    }
+}
+
+.user-avatar {
+    padding-right: 8px;
+    min-width: 75px;
+}
+
+.user-avatar img {
+    border-radius: 50%;
+    height: auto;
+    width: 75px;
+}
+
+.user-detail {
+    padding-left: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 1;
+    word-break: break-word;
+}

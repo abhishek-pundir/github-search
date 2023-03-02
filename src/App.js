@@ -1,24 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+import RootLayout from "./layouts/RootLayout";
+import Search from "./pages/Search";
+import SearchResult from "./pages/SearchResult";
+import UserProfile from "./pages/UserProfile";
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<Search />} />
+      <Route path="search" element={<SearchResult />} />
+      <Route path="user/:username" element={<UserProfile />} />
+    </Route>
+  )
+);
+
+// Initialize query client
+// stale time set to 60 seconds (Github by default support 1 minute caching)
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { staleTime: 1000 * 60 } },
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
   );
 }
 

@@ -1,0 +1,141 @@
+.logo {
+    width: min(100%, 400px);
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-layout {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 24px;
+}
+
+.search-input {
+    width: 50%;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: 1px solid #dfe1e5;
+}
+
+.search-input:focus {
+    outline: none;
+}
+
+.search-input:hover,.search-input:focus {
+    box-shadow: 0 1px 6px rgb(32 33 36 / 28%);
+}
+
+.search-label {
+    position: relative;
+    display: block;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0; 
+}
+
+ /* form {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -0.75rem 1.5rem;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding-right: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-control label {
+    position: relative;
+    display: block;
+  }
+  
+  .form-control label > span:first-child {
+    position: absolute;
+    inset: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    padding-left: 0.5rem;
+    color: #CBD5E0;
+  }
+  
+  .form-control input[type="text"] {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #E2E8F0;
+    border-radius: 0.375rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 2.25rem;
+    padding-right: 0.75rem;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #4A5568;
+  }
+  
+  .form-control input[type="text"]::placeholder {
+    font-style: italic;
+    color: #CBD5E0;
+  }
+  
+  .search-btn {
+    width: 100%;
+  }
+  
+  .search-btn button {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    background-color: #4299E1;
+    color: #fff;
+    border: 2px solid transparent;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 9999px;
+    transition: all 0.15s ease-in-out;
+    cursor: pointer;
+  }
+  
+  .search-btn button:hover {
+    background-color: #2B6CB0;
+    border-color: #2B6CB0;
+  }
+   */
+
+.search-btn {
+    padding: 12px;
+    /* border-radius: 5px; */
+}
+.search-btn:hover {
+    cursor: pointer;
+}

@@ -1,0 +1,130 @@
+.profile-layout {
+    margin-top: 16px;
+    width: 100%;
+}
+
+.user-summary {
+    background-color: var(--color-card-bg);
+    border-radius: 4px;
+    padding: 32px;
+
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: repeat(3, auto);
+    grid-template-areas:
+        "avatar bio"
+        "avatar stats"
+        "avatar contact";
+    column-gap: 50px;
+}
+
+  
+/* For screens smaller than 480px */
+@media (max-width: 479px) {
+    .user-summary {
+        grid-template-areas:
+            "avatar"
+            "bio"
+            "stats"
+            "contact";
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, auto);
+    }
+}
+
+.profile-avatar {
+    min-height: 60px;
+    display: flex;
+    flex-direction: column;
+
+    grid-area: avatar;
+}
+
+.profile-avatar img {
+    width: 246px;
+    height: auto;
+    border-radius: 50%;
+}
+
+.bio {
+    grid-area: bio;
+    font-size: 24px;
+    line-height: 1.3;
+}
+
+.username-wrapper {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    
+}
+
+.name-heading {
+    text-align: center;
+    font-size: 24px;
+    line-height: 1.25;
+    margin: 0;
+}
+
+.name-subheading {
+    text-align: center;
+    line-height: 24px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.avatar {
+    border-radius: 8px;
+    min-width: 100%;
+}
+
+.profile-detail {
+    /* display: flex;
+    flex-direction: column;
+    flex: 1; */
+}
+
+.stats {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    background-color: #f6f8fa;
+    grid-area: stats;
+    height: fit-content;
+    padding: 16px;
+    gap: 16px;
+}
+
+.stats-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.contact {
+    grid-area: contact;
+}
+
+.contact-list {
+    padding: 0;
+}
+
+.contact-list li {
+    list-style: none;
+}
+
+.contact-list li svg {
+    position: relative;
+    top: 2px;
+}
+
+.contact-list li span {
+    position: relative;
+    left: 10px;
+}

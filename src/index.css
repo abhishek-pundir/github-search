@@ -1,3 +1,9 @@
+:root {
+  --color-border-default: #d0d7de;
+  --color-hover-default: #c1cad3;
+  --color-card-bg: #ffffff;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +11,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  width: 100vw;
+  background-color: #efefef;
+}
+
+#root {
+  height: inherit;
+  width: inherit;
 }
 
 code {
