@@ -16,9 +16,10 @@ const SearchResult = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("q");
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["searchResults", { query, page }],
     queryFn: () => getUsers(query, page),
+    keepPreviousData: true, // display the current data till fresh data is fetched
   });
 
   useEffect(() => {
@@ -27,9 +28,15 @@ const SearchResult = () => {
   }, [data?.total_count]);
 
   // Error and loading states
-  if (error) return <div>Request Failed</div>;
+  if (data?.message)
+    return (
+      <div className="flex-center notification">
+        Request Failed. Please try after some time
+      </div>
+    );
   if (isLoading) return <Loader />;
-  if (data?.items?.length === 0) return <div>No User Found</div>;
+  if (data?.items?.length === 0)
+    return <div className="flex-center notification">No User Found</div>;
 
   return (
     <div className="search-result">

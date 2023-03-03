@@ -1,3 +1,14 @@
+.flex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.notification {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    font-weight: 700;
+}
+
 .list-wrapper {
     display: flex;
     flex-wrap: wrap;
