@@ -4,4 +4,5 @@
     max-width: 850px;
 	padding-left: 32px;
 	padding-right: 32px;
+	overflow: auto;	
 }

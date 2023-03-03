@@ -5,7 +5,7 @@
     display: flex;
     margin-bottom: 20px;
     padding: 16px;
-    width: 30%;
+    width: 28%;
 }
 
 .user-card:hover {
@@ -15,7 +15,7 @@
 
 @media (max-width: 767px) {
     .user-card {
-        width: 48%; /* Change to 2 columns */
+        width: 40%; /* Change to 2 columns */
     }
 }
   

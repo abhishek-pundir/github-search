@@ -32,6 +32,11 @@
     }
 }
 
+.user-summary a {
+    text-decoration: none;
+    /* color: black; */
+}
+
 .profile-avatar {
     min-height: 60px;
     display: flex;
@@ -71,6 +76,11 @@
     margin: 0;
     font-size: 20px;
     font-weight: 300;
+    color: var(--color-repo-caption);
+}
+
+.name-subheading:hover {
+    color: blue;
 }
 
 .avatar {

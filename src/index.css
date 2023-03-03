@@ -2,6 +2,8 @@
   --color-border-default: #d0d7de;
   --color-hover-default: #c1cad3;
   --color-card-bg: #ffffff;
+  --color-tag-bg: #ebedf0;
+  --color-repo-caption: #616466;
 }
 
 body {

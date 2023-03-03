@@ -53,13 +53,30 @@ const UserRepoList = () => {
       {data?.pages?.map((page) => (
         <>
           {page.map((repo) => (
-            <div key={repo.id}>
-              <p className="heading">{repo.name}</p>
-              <p className="sub-heading">{repo.description}</p>
-              <p className="sub-heading">{repo.language}</p>
-              <p className="sub-heading">Stars: {repo.stargazers_count}</p>
-              <p className="sub-heading">Forks: {repo.forks_count}</p>
-            </div>
+            <a href={repo.svn_url} target="_blank" rel="noopener noreferrer">
+              <div className="user-repo-card" key={repo.id}>
+                <p className="repo-heading">{repo.name}</p>
+
+                {repo?.description && (
+                  <p className="repo-description">{repo.description}</p>
+                )}
+                <div className="repo-details">
+                  {repo?.language && (
+                    <span className="repo-tag">{repo.language}</span>
+                  )}
+                  {repo.stargazers_count !== null && (
+                    <span className="repo-caption">
+                      Stars: {repo.stargazers_count}
+                    </span>
+                  )}
+                  {repo.forks_count !== null && (
+                    <span className="repo-caption">
+                      Forks: {repo.forks_count}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </a>
           ))}
         </>
       ))}

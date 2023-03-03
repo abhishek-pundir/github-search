@@ -79,9 +79,7 @@ const UserProfile = () => {
         </div>
       </div>
 
-      <div className="user-repo">
-        <UserRepoList />
-      </div>
+      <UserRepoList />
     </div>
   );
 };
