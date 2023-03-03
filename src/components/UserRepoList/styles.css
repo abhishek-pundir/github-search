@@ -1,0 +1,8 @@
+.loader-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.loader-btn {
+    padding: 16px;
+}

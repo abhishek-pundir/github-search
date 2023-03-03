@@ -5,6 +5,7 @@ import "./styles.css";
 
 import { getUsers } from "../../sdk/api/users";
 import UserCard from "../../components/UserCard/UserCard";
+import Loader from "../../components/Loader";
 
 const SearchResult = () => {
   const [page, SetPage] = useState(1);
@@ -19,7 +20,7 @@ const SearchResult = () => {
 
   // Error and loading states
   if (error) return <div>Request Failed</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loader />;
   if (data?.items?.length === 0) return <div>No User Found</div>;
 
   return (

@@ -1,0 +1,21 @@
+.header {
+    padding: 8px;
+    display: flex;
+}
+
+.header-left {
+    flex: 1;
+    justify-content: flex-start;
+}
+
+.logo-sm {
+    width: 92px;
+    height: 36px;
+    margin-left: auto;
+    margin-right: 16px;
+}
+
+.logo-sm img {
+    width: 100%;
+    height: auto;
+}

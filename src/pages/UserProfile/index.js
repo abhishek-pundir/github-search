@@ -5,6 +5,8 @@ import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaTwitter, FaLink } from "react-icons/fa";
 import "./styles.css";
+import UserRepoList from "../../components/UserRepoList";
+import Loader from "../../components/Loader";
 
 const UserProfile = () => {
   const { username } = useParams();
@@ -16,7 +18,7 @@ const UserProfile = () => {
 
   // Error and loading states
   if (error) return <div>Request Failed</div>;
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Loader />;
 
   return (
     <div className="profile-layout">
@@ -77,7 +79,9 @@ const UserProfile = () => {
         </div>
       </div>
 
-      <div className="user-repo"></div>
+      <div className="user-repo">
+        <UserRepoList />
+      </div>
     </div>
   );
 };
