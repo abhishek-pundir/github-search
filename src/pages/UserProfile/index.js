@@ -11,13 +11,14 @@ import Loader from "../../components/Loader";
 const UserProfile = () => {
   const { username } = useParams();
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, status, data } = useQuery({
     queryKey: ["userProfile", { username }],
     queryFn: () => getUserByUsername(username),
   });
 
   // Error and loading states
-  if (error) return <div>Request Failed</div>;
+  if (data?.message)
+    return <div>Request Failed. Please try after some time</div>;
   if (isLoading) return <Loader />;
 
   return (
@@ -31,22 +32,24 @@ const UserProfile = () => {
           />
           <div className="username-wrapper">
             <h1 className="name-heading">{data.name}</h1>
-            <h3 className="name-subheading">{data.login}</h3>
+            <a href={data.html_url} target="_blank" rel="noopener noreferrer">
+              <h3 className="name-subheading">{data.login}</h3>
+            </a>
           </div>
         </div>
         <div className="bio">{data.bio && <p>{data.bio}</p>}</div>
         <div className="stats">
           <div className="stats-item">
-            <label>Repos</label>
-            <label>{data.public_repos}</label>
+            <span>Repos</span>
+            <span>{data.public_repos}</span>
           </div>
           <div className="stats-item">
-            <label>Following</label>
-            <label>{data.following}</label>
+            <span>Following</span>
+            <span>{data.following}</span>
           </div>
           <div className="stats-item">
-            <label>Followers</label>
-            <label>{data.followers}</label>
+            <span>Followers</span>
+            <span>{data.followers}</span>
           </div>
         </div>
         <div className="contact">

@@ -28,7 +28,7 @@ const SearchBar = (props) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className={`search-wrapper ${className}`}>
+      <div className={`search-wrapper ${className}`} data-testid="search-bar">
         <input
           className="search-input"
           placeholder="Search User..."

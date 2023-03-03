@@ -18,7 +18,6 @@ export async function getUsers(username, page) {
   );
 
   const data = await response.json();
-  console.log("user search ", data);
   return data;
 }
 
@@ -32,7 +31,6 @@ export async function getUserByUsername(username) {
   const response = await fetch(GITHUB_USER_PROFILE_URL + `${username}`);
 
   const data = await response.json();
-  console.log("user data ", data);
   return data;
 }
 
@@ -49,6 +47,5 @@ export async function getUserRepos(username, page) {
   );
 
   const data = await response.json();
-  console.log("user repos data ", data);
   return data;
 }
