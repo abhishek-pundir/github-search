@@ -14,19 +14,19 @@ import Search from "./pages/Search";
 import SearchResult from "./pages/SearchResult";
 import UserProfile from "./pages/UserProfile";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<Search />} />
-      <Route path="search" element={<SearchResult />} />
-      <Route path="user/:username" element={<UserProfile />} />
-    </Route>
-  )
+export const routeConfig = createRoutesFromElements(
+  <Route path="/" element={<RootLayout />}>
+    <Route index element={<Search />} />
+    <Route path="search" element={<SearchResult />} />
+    <Route path="user/:username" element={<UserProfile />} />
+  </Route>
 );
+
+const router = createBrowserRouter(routeConfig);
 
 // Initialize query client
 // stale time set to 60 seconds (Github by default support 1 minute caching)
-const queryClient = new QueryClient({
+export const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 1000 * 60 } },
 });
 

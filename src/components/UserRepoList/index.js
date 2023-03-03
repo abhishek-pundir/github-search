@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useInfiniteQuery } from "react-query";
@@ -5,6 +6,7 @@ import { useInView } from "react-intersection-observer";
 import { getUserRepos } from "../../sdk/api/users";
 import "./styles.css";
 import Loader from "../Loader";
+import UserRepoCard from "../UserRepoCard";
 
 const UserRepoList = () => {
   const { username } = useParams();
@@ -50,35 +52,12 @@ const UserRepoList = () => {
 
   return (
     <div className="user-repo">
-      {data?.pages?.map((page) => (
-        <>
+      {data?.pages?.map((page, index) => (
+        <React.Fragment key={index}>
           {page.map((repo) => (
-            <a href={repo.svn_url} target="_blank" rel="noopener noreferrer">
-              <div className="user-repo-card" key={repo.id}>
-                <p className="repo-heading">{repo.name}</p>
-
-                {repo?.description && (
-                  <p className="repo-description">{repo.description}</p>
-                )}
-                <div className="repo-details">
-                  {repo?.language && (
-                    <span className="repo-tag">{repo.language}</span>
-                  )}
-                  {repo.stargazers_count !== null && (
-                    <span className="repo-caption">
-                      Stars: {repo.stargazers_count}
-                    </span>
-                  )}
-                  {repo.forks_count !== null && (
-                    <span className="repo-caption">
-                      Forks: {repo.forks_count}
-                    </span>
-                  )}
-                </div>
-              </div>
-            </a>
+            <UserRepoCard repo={repo} key={repo.id} />
           ))}
-        </>
+        </React.Fragment>
       ))}
       <div ref={ref}>
         <span>

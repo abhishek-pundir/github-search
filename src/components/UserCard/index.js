@@ -11,7 +11,7 @@ const UserCard = (props) => {
   }
 
   return (
-    <div className="user-card" onClick={handleNavigate}>
+    <div className="user-card" data-testid="user-card" onClick={handleNavigate}>
       <div className="user-avatar">
         <img src={data.avatar_url} alt="user avatar" />
       </div>
