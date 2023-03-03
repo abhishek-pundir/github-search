@@ -4,7 +4,7 @@ This is a React application for searching Github users by username and displayin
 
 ## Live Website
 
-This project is live here `https://github-search-now.vercel.app/`
+This project is live here https://github-search-now.vercel.app/
 
 ## Installation
 
