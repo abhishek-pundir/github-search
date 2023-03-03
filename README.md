@@ -1,6 +1,6 @@
 # Github User Search App
 
-This is a React application for searching Github users by username and displaying their public repositories. It has two pages - a search page and a result page.
+Discover Github users and their public repositories with ease using this sleek React app. Search by username and easily browse through public repositories, all within a seamless and user-friendly interface.
 
 ## Live Website
 
