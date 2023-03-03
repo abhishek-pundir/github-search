@@ -11,7 +11,7 @@ import Loader from "../../components/Loader";
 const UserProfile = () => {
   const { username } = useParams();
 
-  const { isLoading, status, data } = useQuery({
+  const { isLoading, data } = useQuery({
     queryKey: ["userProfile", { username }],
     queryFn: () => getUserByUsername(username),
   });

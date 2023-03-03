@@ -2,6 +2,10 @@
 
 This is a React application for searching Github users by username and displaying their public repositories. It has two pages - a search page and a result page.
 
+## Live Website
+
+This project is live here `https://github-search-now.vercel.app/`
+
 ## Installation
 
 - Clone the repository to your local machine.
@@ -16,17 +20,20 @@ This is a React application for searching Github users by username and displayin
 
 ## Features
 
-- User Search Page with input field for searching Github users by username and a search button.
-- User Result Page with user information, repositories count, link to Github profile, and a list/grid of paginated repositories.
-- For each repository item, the name, number of stars, and number of forks are displayed.
-- Clicking on a repository item or any other sort of link opens a new tab in the browser with the Github page repository.
+- User Search Page allows users to search for Github users by username.
+- Search Result Page displays a paginated list of user accounts that match the searched username, with results sorted by relevance.
+- User Profile page displays a summary of the user's profile information, including their bio, repository count, follower statistics, and other relevant information.
+- User profile page displays list of user repositories
+- For each repository, details such as the name, description, programming language, number of stars, and number of forks are displayed.
+- Clicking on a repository item or any other sort of link opens a new tab in the browser with the Github repository page.
 - Routing is used to allow linking to a specific user's result page.
 - Responsive design that works well on desktop and mobile devices.
 
 ## Technologies Used
 
 - React
-- React Router
+- React Router DOM
+- React Query
 
 ## Contributing
 
