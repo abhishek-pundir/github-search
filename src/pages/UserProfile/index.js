@@ -1,12 +1,11 @@
 import { useParams } from "react-router-dom";
-import { useQuery } from "react-query";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaTwitter, FaLink } from "react-icons/fa";
 import "./styles.css";
 
+import useUserProfile from "../../hooks/useUserProfile";
 import { REQUEST_FAILED } from "../../constants";
-import { getUserByUsername } from "../../sdk/api/users";
 import UserRepoList from "../../components/UserRepoList";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";
@@ -14,10 +13,7 @@ import Loader from "../../components/Loader";
 const UserProfile = () => {
   const { username } = useParams();
 
-  const { isLoading, data } = useQuery({
-    queryKey: ["userProfile", { username }],
-    queryFn: () => getUserByUsername(username),
-  });
+  const { isLoading, data } = useUserProfile(username);
 
   // Error and loading states
   if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
