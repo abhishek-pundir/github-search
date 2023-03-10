@@ -18,7 +18,11 @@ const UserProfile = () => {
 
   // Error and loading states
   if (data?.message)
-    return <div>Request Failed. Please try after some time</div>;
+    return (
+      <div className="flex-center notification">
+        Request Failed. Please try after some time
+      </div>
+    );
   if (isLoading) return <Loader />;
 
   return (

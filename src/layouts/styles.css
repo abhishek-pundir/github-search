@@ -5,4 +5,5 @@
 	padding-left: 32px;
 	padding-right: 32px;
 	height: inherit;
+	min-width: fit-content;
 }

@@ -54,7 +54,7 @@ const UserRepoList = () => {
     <div className="user-repo">
       {data?.pages?.map((page, index) => (
         <React.Fragment key={index}>
-          {page.map((repo) => (
+          {page?.map((repo) => (
             <UserRepoCard repo={repo} key={repo.id} />
           ))}
         </React.Fragment>
