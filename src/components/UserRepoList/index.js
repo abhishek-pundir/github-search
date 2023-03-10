@@ -2,6 +2,7 @@ import React from "react";
 import useUserRepos from "../../hooks/useUserRepo";
 import "./styles.css";
 import Loader from "../Loader";
+import ErrorMessage from "../ErrorMessage";
 import UserRepoCard from "../UserRepoCard";
 
 const UserRepoList = (props) => {
@@ -12,7 +13,9 @@ const UserRepoList = (props) => {
 
   // Error and loading states
   if (status === "error")
-    return <div>Failed to load Repositories {error.message}</div>;
+    return (
+      <ErrorMessage message={`Failed to load Repositories ${error.message}`} />
+    );
   if (status === "loading")
     return (
       <div className="loader-wrapper">
