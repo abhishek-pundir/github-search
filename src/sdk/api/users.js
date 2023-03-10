@@ -6,15 +6,15 @@ import {
 } from "../constants";
 
 /**
- * Fetches data for users based on the given input and page number.
- * @param {string} username - The search query to fetch data for.
- * @param {number} page - The page number of the data to fetch.
- * @returns {Promise<Array>} - Promise that resolves to a JSON array of data.
+ * Fetches matching GitHub users for the given search query and page number.
+ * @param {string} query - The search query to fetch data for.
+ * @param {number} page - The page number of the search results to fetch.
+ * @returns {Promise<Array>} - Promise that resolves to a JSON array of matching user data.
  */
-export async function getUsers(username, page) {
+export async function getUsers(query, page) {
   const response = await fetch(
     GITHUB_USER_SEARCH_URL +
-      `?q=${username}&page=${page}&per_page=${USER_SEARCH_PAGE_SIZE}`
+      `?q=${query}&page=${page}&per_page=${USER_SEARCH_PAGE_SIZE}`
   );
 
   const data = await response.json();
@@ -23,9 +23,8 @@ export async function getUsers(username, page) {
 
 /**
  * Fetches user's Github profile data for the given username.
- * @param {string} username - The search query to fetch data for.
- * @param {number} page - The page number of the data to fetch.
- * @returns {Promise<Array>} - Promise that resolves to a JSON array of data.
+ * @param {string} username - GitHub username of the user whose details are to be fetched.
+ * @returns {Promise} - Promise that resolves to a JSON data containing user details.
  */
 export async function getUserByUsername(username) {
   const response = await fetch(GITHUB_USER_PROFILE_URL + `${username}`);
@@ -36,9 +35,9 @@ export async function getUserByUsername(username) {
 
 /**
  * Fetches user's Github profile data for the given username.
- * @param {string} username - The search query to fetch data for.
- * @param {number} page - The page number of the data to fetch.
- * @returns {Promise<Array>} - Promise that resolves to a JSON array of data.
+ * @param {string} username - GitHub username of the user whose repositories are to be fetched.
+ * @param {number} page - The page number of the repositories to fetch.
+ * @returns {Promise<Array>} - Promise that resolves to a JSON array of user repositories data.
  */
 export async function getUserRepos(username, page) {
   const response = await fetch(
