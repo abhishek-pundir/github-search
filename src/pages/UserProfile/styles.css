@@ -133,14 +133,3 @@
     position: relative;
     left: 10px;
 }
-
-.flex-center {
-    display: flex;
-    justify-content: center;
-}
-
-.notification {
-    margin-top: 24px;
-    margin-bottom: 24px;
-    font-weight: 700;
-}

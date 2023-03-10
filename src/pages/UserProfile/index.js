@@ -1,11 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
-import { getUserByUsername } from "../../sdk/api/users";
 import { HiOutlineBuildingOffice2 } from "react-icons/hi2";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaTwitter, FaLink } from "react-icons/fa";
 import "./styles.css";
+
+import { REQUEST_FAILED } from "../../constants";
+import { getUserByUsername } from "../../sdk/api/users";
 import UserRepoList from "../../components/UserRepoList";
+import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";
 
 const UserProfile = () => {
@@ -17,12 +20,7 @@ const UserProfile = () => {
   });
 
   // Error and loading states
-  if (data?.message)
-    return (
-      <div className="flex-center notification">
-        Request Failed. Please try after some time
-      </div>
-    );
+  if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
   if (isLoading) return <Loader />;
 
   return (

@@ -3,11 +3,13 @@ import { useLocation } from "react-router-dom";
 import { useQuery } from "react-query";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { USER_SEARCH_PAGE_SIZE } from "../../sdk/constants";
+import { REQUEST_FAILED, NO_USER_FOUND } from "../../constants";
 import "./styles.css";
 
 import { getUsers } from "../../sdk/api/users";
 import UserCard from "../../components/UserCard";
 import Loader from "../../components/Loader";
+import ErrorMessage from "../../components/ErrorMessage";
 
 const SearchResult = () => {
   const [page, setPage] = useState(1);
@@ -28,15 +30,10 @@ const SearchResult = () => {
   }, [data?.total_count]);
 
   // Error and loading states
-  if (data?.message)
-    return (
-      <div className="flex-center notification">
-        Request Failed. Please try after some time
-      </div>
-    );
+  if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
   if (isLoading) return <Loader />;
   if (data?.items?.length === 0)
-    return <div className="flex-center notification">No User Found</div>;
+    return <ErrorMessage message={NO_USER_FOUND} />;
 
   return (
     <div className="search-result">
