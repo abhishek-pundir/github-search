@@ -16,8 +16,8 @@ const UserProfile = () => {
   const { isLoading, data } = useUserProfile(username);
 
   // Error and loading states
-  if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
   if (isLoading) return <Loader />;
+  if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
 
   return (
     <div className="profile-layout">

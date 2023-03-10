@@ -25,8 +25,8 @@ const SearchResult = () => {
   }, [data?.total_count]);
 
   // Error and loading states
-  if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
   if (isLoading) return <Loader />;
+  if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
   if (data?.items?.length === 0)
     return <ErrorMessage message={NO_USER_FOUND} />;
 
