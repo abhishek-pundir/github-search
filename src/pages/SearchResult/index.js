@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { useQuery } from "react-query";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import useSearchUsers from "../../hooks/useSearchUsers";
 import { USER_SEARCH_PAGE_SIZE } from "../../sdk/constants";
 import { REQUEST_FAILED, NO_USER_FOUND } from "../../constants";
 import "./styles.css";
 
-import { getUsers } from "../../sdk/api/users";
 import UserCard from "../../components/UserCard";
 import Loader from "../../components/Loader";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -18,11 +17,7 @@ const SearchResult = () => {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("q");
 
-  const { isLoading, data } = useQuery({
-    queryKey: ["searchResults", { query, page }],
-    queryFn: () => getUsers(query, page),
-    keepPreviousData: true, // display the current data till fresh data is fetched
-  });
+  const { isLoading, data } = useSearchUsers(query, page);
 
   useEffect(() => {
     const totalPageCount = Math.ceil(data?.total_count / USER_SEARCH_PAGE_SIZE);
