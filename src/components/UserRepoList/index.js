@@ -1,42 +1,14 @@
 import React from "react";
-import { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useInfiniteQuery } from "react-query";
-import { useInView } from "react-intersection-observer";
-import { getUserRepos } from "../../sdk/api/users";
+import useUserRepos from "../../hooks/useUserRepo";
 import "./styles.css";
 import Loader from "../Loader";
 import UserRepoCard from "../UserRepoCard";
 
-const UserRepoList = () => {
-  const { username } = useParams();
+const UserRepoList = (props) => {
+  const { username } = props;
 
-  const { ref, inView } = useInView();
-
-  const {
-    status,
-    data,
-    error,
-    isFetchingNextPage,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: ["user-repos", { username }],
-    queryFn: ({ pageParam = 1 }) => getUserRepos(username, pageParam),
-    getNextPageParam: (lastPage, pages) => {
-      if (lastPage.length > 0) {
-        return pages.length + 1;
-      }
-      return undefined;
-    },
-  });
-
-  useEffect(() => {
-    if (inView) {
-      if (isFetchingNextPage) return;
-      fetchNextPage();
-    }
-  }, [inView, isFetchingNextPage, fetchNextPage]);
+  const { ref, status, data, error, isFetchingNextPage, hasNextPage } =
+    useUserRepos(username);
 
   // Error and loading states
   if (status === "error")

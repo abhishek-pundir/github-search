@@ -84,7 +84,7 @@ const UserProfile = () => {
         </div>
       </div>
 
-      <UserRepoList />
+      <UserRepoList username={username} />
     </div>
   );
 };
