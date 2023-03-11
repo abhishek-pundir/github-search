@@ -4,7 +4,7 @@ import { HiOutlineLocationMarker } from "react-icons/hi";
 import { FaTwitter, FaLink } from "react-icons/fa";
 import "./styles.css";
 
-import useUserProfile from "../../hooks/useUserProfile";
+import { useUserProfile } from "../../hooks/useUserProfile";
 import { REQUEST_FAILED } from "../../constants";
 import UserRepoList from "../../components/UserRepoList";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -17,7 +17,11 @@ const UserProfile = () => {
 
   // Error and loading states
   if (isLoading) return <Loader />;
-  if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
+  if (data?.message) {
+    const errorMessage =
+      data.message === "Not Found" ? "User Not Found" : REQUEST_FAILED;
+    return <ErrorMessage message={errorMessage} />;
+  }
 
   return (
     <div className="profile-layout">

@@ -105,7 +105,7 @@ describe("SearchResult", () => {
     expect(user2Element).toBeInTheDocument();
   });
 
-  it("renders pagination buttons correctly", async () => {
+  it("disables the Previous button and Next button when there is only one page", async () => {
     const mockData = {
       total_count: 2,
       items: [
@@ -141,6 +141,56 @@ describe("SearchResult", () => {
 
     expect(pageNumberElement).toBeInTheDocument();
     expect(nextBtnElement).toBeInTheDocument();
+    expect(nextBtnElement).toBeDisabled();
     expect(prevBtnElement).toBeInTheDocument();
+    expect(prevBtnElement).toBeDisabled();
+  });
+
+  it("enables the Previous button and Next button when there are multiple pages", async () => {
+    const mockData = {
+      total_count: 50,
+      items: [
+        {
+          id: 1,
+          login: "user1",
+          avatar_url: "https://avatar1.com",
+        },
+        {
+          id: 2,
+          login: "user2",
+          avatar_url: "https://avatar2.com",
+        },
+      ],
+    };
+
+    useQuery.mockReturnValue({
+      isLoading: false,
+      data: mockData,
+    });
+
+    getUsers.mockResolvedValue(mockData);
+
+    render(
+      <MemoryRouter initialEntries={["/search?q=test"]}>
+        <SearchResult />
+      </MemoryRouter>
+    );
+
+    let pageNumberElement = await screen.findByText("1 / 2");
+    expect(pageNumberElement).toBeInTheDocument();
+
+    const prevBtnElement = await screen.findByText("Previous");
+    expect(prevBtnElement).toBeDisabled();
+
+    const nextBtnElement = await screen.findByText("Next");
+    expect(nextBtnElement).not.toBeDisabled();
+
+    fireEvent.click(nextBtnElement);
+    pageNumberElement = await screen.findByText("2 / 2");
+    expect(pageNumberElement).toBeInTheDocument();
+
+    fireEvent.click(prevBtnElement);
+    pageNumberElement = await screen.findByText("1 / 2");
+    expect(pageNumberElement).toBeInTheDocument();
   });
 });

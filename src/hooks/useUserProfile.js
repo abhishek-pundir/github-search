@@ -1,13 +1,11 @@
 import { useQuery } from "react-query";
 import { getUserByUsername } from "../sdk/api/users";
 
-const useUserProfile = (username) => {
-  const { isLoading, data } = useQuery({
+export const useUserProfile = (username) => {
+  const { isLoading, data, isError } = useQuery({
     queryKey: ["userProfile", { username }],
     queryFn: () => getUserByUsername(username),
   });
 
-  return { isLoading, data };
+  return { isLoading, data, isError };
 };
-
-export default useUserProfile;

@@ -1,30 +1,16 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { useQuery } from "react-query";
 import UserProfile from "./index";
-import { getUserByUsername } from "../../sdk/api/users";
+import { useUserProfile } from "../../hooks/useUserProfile";
 
-jest.mock("react-query");
 jest.mock("../../components/UserRepoList/index", () => "div");
-jest.mock("../../sdk/api/users");
-
-const mockRef = jest.fn();
-const mockInView = jest.fn();
-
-jest.mock("react-intersection-observer", () => ({
-  ...jest.requireActual("react-intersection-observer"),
-  useNavigate: () => mockRef,
-  useLocation: () => mockInView,
-}));
+jest.mock("../../hooks/useUserProfile");
 
 describe("SearchResult", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("renders a loading state initially", () => {
-    useQuery.mockReturnValue({
+  it("renders a loading state initially", async () => {
+    useUserProfile.mockReturnValue({
       isLoading: true,
+      data: null,
     });
 
     render(
@@ -36,8 +22,8 @@ describe("SearchResult", () => {
     expect(screen.getByTestId("bounce-loader")).toBeInTheDocument();
   });
 
-  it("renders an error message if the search query fails", async () => {
-    useQuery.mockReturnValue({
+  it("renders error message if the request fails", async () => {
+    useUserProfile.mockReturnValue({
       isLoading: false,
       data: {
         message: "Request Failed",
@@ -56,6 +42,24 @@ describe("SearchResult", () => {
     expect(errorMessageElement).toBeInTheDocument();
   });
 
+  it("renders correct error message when user is not found", async () => {
+    useUserProfile.mockReturnValue({
+      isLoading: false,
+      data: {
+        message: "Not Found",
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/users/abhishek-pundir"]}>
+        <UserProfile />
+      </MemoryRouter>
+    );
+
+    const errorMessageElement = await screen.findByText("User Not Found");
+    expect(errorMessageElement).toBeInTheDocument();
+  });
+
   it("renders the user profile when data is fetched successfully", async () => {
     const mockData = {
       avatar_url: "https://avatar.com",
@@ -71,12 +75,10 @@ describe("SearchResult", () => {
       blog: "https://abhishekpundir.com",
     };
 
-    useQuery.mockReturnValue({
+    useUserProfile.mockReturnValue({
       isLoading: false,
       data: mockData,
     });
-
-    getUserByUsername.mockResolvedValue(mockData);
 
     render(
       <MemoryRouter initialEntries={["/users/abhishek-pundir"]}>
@@ -89,7 +91,7 @@ describe("SearchResult", () => {
     );
 
     expect(userCountElement).toBeInTheDocument();
-    expect(useQuery).toHaveBeenCalled();
+    expect(useUserProfile).toHaveBeenCalled();
     expect(screen.getByText("abhishek-pundir")).toBeInTheDocument();
     expect(screen.getByText("abhishek-pundir")).toBeInTheDocument();
     expect(screen.getByText("A software developer")).toBeInTheDocument();

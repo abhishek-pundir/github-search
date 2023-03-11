@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
 import { getUserRepos } from "../sdk/api/users";
 
-const useUserRepos = (username) => {
+export const useUserRepos = (username) => {
   const { ref, inView } = useInView();
 
   const {
@@ -37,8 +37,7 @@ const useUserRepos = (username) => {
     data,
     error,
     isFetchingNextPage,
+    fetchNextPage,
     hasNextPage,
   };
 };
-
-export default useUserRepos;
