@@ -1,10 +1,9 @@
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import UserProfile from "./index";
-import { useUserProfile } from "../../hooks/useUserProfile";
+import { useUserProfile, useUserRepos } from "../../hooks";
 
-jest.mock("../../components/UserRepoList/index", () => "div");
-jest.mock("../../hooks/useUserProfile");
+jest.mock("../../hooks");
 
 describe("UserProfile", () => {
   it("renders a loading state initially", async () => {
@@ -79,6 +78,24 @@ describe("UserProfile", () => {
       isLoading: false,
       data: mockData,
     });
+
+    const mockRepoData = {
+      status: "success",
+      data: {
+        pages: [
+          [
+            { id: 1, name: "Repo 1" },
+            { id: 2, name: "Repo 2" },
+          ],
+          [{ id: 3, name: "Repo 3" }],
+        ],
+      },
+      error: null,
+      isFetchingNextPage: false,
+      hasNextPage: true,
+      fetchNextPage: jest.fn(),
+    };
+    useUserRepos.mockReturnValue(mockRepoData);
 
     render(
       <MemoryRouter initialEntries={["/users/abhishek-pundir"]}>
