@@ -16,13 +16,13 @@ const mockUser = {
 };
 
 describe("UserCard", () => {
-  test("renders github username of user", () => {
+  it("renders github username of user", () => {
     render(<UserCard data={mockUser} />);
     const username = screen.getByText(`@${mockUser.login}`);
     expect(username).toBeInTheDocument();
   });
 
-  test("navigates to user profile when clicked", () => {
+  it("navigates to user profile when clicked", () => {
     render(<UserCard data={mockUser} />);
 
     const userCard = screen.getByTestId("user-card");

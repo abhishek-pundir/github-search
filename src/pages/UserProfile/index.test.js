@@ -6,7 +6,7 @@ import { useUserProfile } from "../../hooks/useUserProfile";
 jest.mock("../../components/UserRepoList/index", () => "div");
 jest.mock("../../hooks/useUserProfile");
 
-describe("SearchResult", () => {
+describe("UserProfile", () => {
   it("renders a loading state initially", async () => {
     useUserProfile.mockReturnValue({
       isLoading: true,

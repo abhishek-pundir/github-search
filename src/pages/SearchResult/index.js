@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
-import useSearchUsers from "../../hooks/useSearchUsers";
+import { useSearchUsers } from "../../hooks";
 import { USER_SEARCH_PAGE_SIZE } from "../../sdk/constants";
 import { REQUEST_FAILED, NO_USER_FOUND } from "../../constants";
 import "./styles.css";

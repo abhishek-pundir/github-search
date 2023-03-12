@@ -1,5 +1,5 @@
 import React from "react";
-import { useUserRepos } from "../../hooks/useUserRepos";
+import { useUserRepos } from "../../hooks";
 import "./styles.css";
 import Loader from "../Loader";
 import ErrorMessage from "../ErrorMessage";

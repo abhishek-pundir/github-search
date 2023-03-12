@@ -1,20 +1,14 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { MemoryRouter, Route } from "react-router-dom";
-import { useQuery } from "react-query";
+import { MemoryRouter } from "react-router-dom";
 import SearchResult from "./index";
-import { getUsers } from "../../sdk/api/users";
+import { useSearchUsers } from "../../hooks/useSearchUsers";
 
-jest.mock("react-query");
-jest.mock("../../sdk/api/users");
+jest.mock("../../hooks/useSearchUsers");
 
 describe("SearchResult", () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
-
-  it("renders a loading state initially", () => {
-    useQuery.mockReturnValue({
+  it("renders a loading state initially", async () => {
+    useSearchUsers.mockReturnValue({
       isLoading: true,
     });
 
@@ -27,8 +21,8 @@ describe("SearchResult", () => {
     expect(screen.getByTestId("bounce-loader")).toBeInTheDocument();
   });
 
-  it("renders an error message if the search query fails", async () => {
-    useQuery.mockReturnValue({
+  it("renders an error message if the search fails", async () => {
+    useSearchUsers.mockReturnValue({
       isLoading: false,
       data: {
         message: "Request Failed",
@@ -47,8 +41,8 @@ describe("SearchResult", () => {
     expect(errorMessageElement).toBeInTheDocument();
   });
 
-  it("renders a 'No User Found' message if no search results are found", async () => {
-    useQuery.mockReturnValue({
+  it("renders a No User Found message if no search results are found", async () => {
+    useSearchUsers.mockReturnValue({
       isLoading: false,
       data: {
         total_count: 0,
@@ -83,12 +77,10 @@ describe("SearchResult", () => {
       ],
     };
 
-    useQuery.mockReturnValue({
+    useSearchUsers.mockReturnValue({
       isLoading: false,
       data: mockData,
     });
-
-    getUsers.mockResolvedValue(mockData);
 
     render(
       <MemoryRouter initialEntries={["/search?q=test"]}>
@@ -122,12 +114,10 @@ describe("SearchResult", () => {
       ],
     };
 
-    useQuery.mockReturnValue({
+    useSearchUsers.mockReturnValue({
       isLoading: false,
       data: mockData,
     });
-
-    getUsers.mockResolvedValue(mockData);
 
     render(
       <MemoryRouter initialEntries={["/search?q=test"]}>
@@ -163,12 +153,10 @@ describe("SearchResult", () => {
       ],
     };
 
-    useQuery.mockReturnValue({
+    useSearchUsers.mockReturnValue({
       isLoading: false,
       data: mockData,
     });
-
-    getUsers.mockResolvedValue(mockData);
 
     render(
       <MemoryRouter initialEntries={["/search?q=test"]}>

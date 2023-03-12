@@ -63,7 +63,7 @@ describe("UserRepoList", () => {
     expect(screen.getByText("Load More")).toBeInTheDocument();
   });
 
-  test("renders loader while fetching next page", async () => {
+  it("renders loader while fetching next page", async () => {
     const mockData = {
       status: "success",
       data: {

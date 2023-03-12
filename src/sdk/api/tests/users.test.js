@@ -1,10 +1,10 @@
-import { getUsers, getUserByUsername, getUserRepos } from "./users";
+import { getUsers, getUserByUsername, getUserRepos } from "../users";
 import {
   USER_SEARCH_PAGE_SIZE,
   USER_REPOS_PAGE_SIZE,
   GITHUB_USER_SEARCH_URL,
   GITHUB_USER_PROFILE_URL,
-} from "../constants";
+} from "../../constants";
 
 describe("API Fetch Functions", () => {
   describe("getUsers", () => {

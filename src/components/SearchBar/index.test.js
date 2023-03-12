@@ -11,20 +11,20 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("SearchBar", () => {
-  test("renders input element with correct placeholder", () => {
+  it("renders input element with correct placeholder", () => {
     render(<SearchBar />);
     const inputElement = screen.getByPlaceholderText("Search User...");
     expect(inputElement).toBeInTheDocument();
   });
 
-  test("submitting form with empty query should not navigate", () => {
+  it("should not navigate on submitting form with empty query", () => {
     render(<SearchBar />);
 
     fireEvent.click(screen.getByText("Search"));
     expect(mockNavigate).not.toHaveBeenCalled();
   });
 
-  test("submitting form with non-empty query should navigate to search page", () => {
+  it("should navigate to search page on submitting form with non-empty query", () => {
     render(<SearchBar />);
     const inputElement = screen.getByPlaceholderText("Search User...");
     const submitButton = screen.getByText("Search");
@@ -34,7 +34,7 @@ describe("SearchBar", () => {
     expect(mockNavigate).toHaveBeenCalledWith("/search?q=john");
   });
 
-  test("updates query value when input prop changes", () => {
+  it("should update query value when input prop changes", () => {
     const { rerender } = render(<SearchBar input="initial query" />);
     const inputElement = screen.getByPlaceholderText("Search User...");
     expect(inputElement).toHaveValue("initial query");
