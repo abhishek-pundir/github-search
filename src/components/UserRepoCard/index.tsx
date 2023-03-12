@@ -1,6 +1,18 @@
 import "./styles.css";
 
-const UserRepoCard = (props) => {
+interface UserRepoCardProps {
+  repo: {
+    svn_url: string;
+    id: number;
+    name: string;
+    description: string | null;
+    language: string | null;
+    stargazers_count: number;
+    forks_count: number;
+  };
+}
+
+const UserRepoCard = (props: UserRepoCardProps) => {
   const { repo } = props;
   return (
     <a
