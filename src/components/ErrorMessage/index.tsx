@@ -1,6 +1,10 @@
 import "./styles.css";
 
-const ErrorMessage = ({ message }) => {
+interface ErrorMessageProps {
+  message: string;
+}
+
+const ErrorMessage = ({ message }: ErrorMessageProps) => {
   return <div className="flex-center notification">{message}</div>;
 };
 
