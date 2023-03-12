@@ -1,7 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 
-const UserCard = (props) => {
+interface UserCardProps {
+  data: {
+    login: string;
+    avatar_url: string;
+  };
+}
+
+const UserCard = (props: UserCardProps) => {
   const { data } = props;
 
   const navigate = useNavigate();
