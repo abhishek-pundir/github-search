@@ -8,6 +8,8 @@ jest.mock("../../sdk/api/users", () => ({
   getUsers: jest.fn(),
 }));
 
+const getUsersMock = getUsers as jest.MockedFunction<typeof getUsers>;
+
 describe("useSearchUsers", () => {
   afterEach(() => {
     jest.resetAllMocks();
@@ -38,7 +40,7 @@ describe("useSearchUsers", () => {
         },
       ],
     };
-    getUsers.mockResolvedValue(mockData);
+    getUsersMock.mockResolvedValue(mockData);
 
     const { result } = renderHook(() => useSearchUsers("testUser", 1), {
       wrapper: createWrapper(),
@@ -60,7 +62,7 @@ describe("useSearchUsers", () => {
 
     const error = new Error("Failed to fetch users");
     error.message = "Request Failed";
-    getUsers.mockRejectedValue(error);
+    getUsersMock.mockRejectedValue(error);
 
     const { result } = renderHook(() => useSearchUsers("sample", 1), {
       wrapper: createWrapper(false),

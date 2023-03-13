@@ -1,11 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { SearchUserItem } from "../../sdk/api/users";
 import "./styles.css";
 
 interface UserCardProps {
-  data: {
-    login: string;
-    avatar_url: string;
-  };
+  data: SearchUserItem
 }
 
 const UserCard = (props: UserCardProps) => {

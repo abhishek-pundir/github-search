@@ -8,6 +8,29 @@ jest.mock("../../sdk/api/users", () => ({
   getUserRepos: jest.fn(),
 }));
 
+const getUserReposMock = getUserRepos as jest.MockedFunction<typeof getUserRepos>;
+
+const mockUserRepoData = [
+  {
+    id: 1,
+    name: "Repo 1",
+    svn_url: "url1",
+    description: null,
+    language: null,
+    stargazers_count: 0,
+    forks_count: 0,
+  },
+  {
+    id: 2,
+    name: "Repo 2",
+    svn_url: "url2",
+    description: null,
+    language: null,
+    stargazers_count: 0,
+    forks_count: 0,
+  },
+];
+
 describe("useUserRepo", () => {
   beforeEach(() => {
     jest.resetModules();
@@ -32,20 +55,7 @@ describe("useUserRepo", () => {
   });
 
   it("should fetch next page of data when fetchNextPage is called", async () => {
-    const mockData = [
-      { id: 1, name: "Repo 1" },
-      { id: 2, name: "Repo 2" },
-      { id: 3, name: "Repo 3" },
-      { id: 4, name: "Repo 4" },
-      { id: 5, name: "Repo 5" },
-      { id: 6, name: "Repo 6" },
-      { id: 7, name: "Repo 7" },
-      { id: 8, name: "Repo 8" },
-      { id: 9, name: "Repo 9" },
-      { id: 10, name: "Repo 10" },
-    ];
-
-    getUserRepos.mockResolvedValueOnce(mockData);
+    getUserReposMock.mockResolvedValueOnce(mockUserRepoData);
 
     const { result } = renderHook(() => useUserRepos("test"), {
       wrapper: createWrapper(),
@@ -57,10 +67,10 @@ describe("useUserRepo", () => {
 
     await act(async () => {
       expect(result.current.status).toBe("success");
-      expect(result.current.data.pages).toEqual([mockData]);
+      expect(result.current.data?.pages).toEqual([mockUserRepoData]);
     });
 
-    getUserRepos.mockResolvedValueOnce(mockData);
+    getUserReposMock.mockResolvedValueOnce(mockUserRepoData);
 
     await act(async () => {
       // next page call
@@ -69,12 +79,15 @@ describe("useUserRepo", () => {
 
     await act(async () => {
       expect(result.current.status).toBe("success");
-      expect(result.current.data.pages).toEqual([mockData, mockData]);
+      expect(result.current.data?.pages).toEqual([
+        mockUserRepoData,
+        mockUserRepoData,
+      ]);
     });
   });
 
   it("should set hasNextPage to false when there is no next page", async () => {
-    getUserRepos.mockResolvedValueOnce([]);
+    getUserReposMock.mockResolvedValueOnce([]);
 
     const { result } = renderHook(() => useUserRepos("test"), {
       wrapper: createWrapper(),
@@ -86,7 +99,7 @@ describe("useUserRepo", () => {
 
     await act(async () => {
       expect(result.current.status).toBe("success");
-      expect(result.current.data.pages).toEqual([[]]);
+      expect(result.current.data?.pages).toEqual([[]]);
       expect(result.current.hasNextPage).toEqual(false);
     });
   });

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import { useUserRepos, UseUserRepos } from "../../hooks/useUserRepos";
+import { useUserRepos } from "../../hooks/useUserRepos";
 import UserRepoList from "./index";
 
 jest.mock("../../hooks/useUserRepos");
@@ -78,9 +78,9 @@ describe("UserRepoList", () => {
   });
 
   it("renders list of user repositories when data is loaded", () => {
-    const mockData: UseUserRepos = {
+    const mockData = {
       ref: jest.fn(),
-      status: "success",
+      status: "success" as const,
       data: {
         pages: mockRepoPages,
         pageParams: [],
@@ -101,9 +101,9 @@ describe("UserRepoList", () => {
   });
 
   it("renders loader while fetching next page", async () => {
-    const mockData: UseUserRepos = {
+    const mockData = {
       ref: jest.fn(),
-      status: "success",
+      status: "success" as const,
       data: {
         pages: mockRepoPages,
         pageParams: [],

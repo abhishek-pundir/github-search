@@ -5,6 +5,7 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
+  Navigate
 } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -18,6 +19,7 @@ export const routeConfig = createRoutesFromElements(
     <Route index element={<Search />} />
     <Route path="search" element={<SearchResult />} />
     <Route path="user/:username" element={<UserProfile />} />
+    <Route path="*" element={<Navigate to="/" />} />
   </Route>
 );
 

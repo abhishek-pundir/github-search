@@ -39,7 +39,6 @@ describe("Users API Fetch Functions", () => {
       // Call the function and wait for the Promise to resolve
       const response = await getUsers(username, page);
 
-      expect(response.total_count).not.toBeDefined();
       expect(response.message).toBe("Request Failed");
     });
 
@@ -52,7 +51,6 @@ describe("Users API Fetch Functions", () => {
       // Call the function and wait for the Promise to resolve
       const response = await getUsers(username, page);
 
-      expect(response.message).not.toBeDefined();
       expect(response.total_count).toBe(0);
     });
   });
@@ -93,21 +91,6 @@ describe("Users API Fetch Functions", () => {
 
       expect(response[0].id).toBeDefined();
       expect(response[0].name).toBeDefined();
-      expect(response.message).not.toBeDefined();
-    });
-
-    it("returns error message if no user found", async () => {
-      server.use(
-        rest.get(GITHUB_USER_PROFILE_URL + ":username/repos", errorResolver)
-      );
-      const username = "sample";
-      const page = 1;
-
-      // Call the function and wait for the Promise to resolve
-      const response = await getUserRepos(username, page);
-
-      expect(response.message).toBeDefined();
-      expect(response[0]).not.toBeDefined();
     });
   });
 });

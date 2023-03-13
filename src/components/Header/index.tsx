@@ -36,7 +36,7 @@ const Header = () => {
 
       {!isRoot && (
         <div className="header-left">
-          <SearchBar input={query ?? ""} />
+          <SearchBar input={query} />
         </div>
       )}
 

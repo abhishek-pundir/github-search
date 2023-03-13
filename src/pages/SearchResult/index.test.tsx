@@ -6,10 +6,14 @@ import { useSearchUsers } from "../../hooks/useSearchUsers";
 
 jest.mock("../../hooks/useSearchUsers");
 
+const useSearchUsersMock = useSearchUsers as jest.MockedFunction<typeof useSearchUsers>;
+
 describe("SearchResult", () => {
   it("renders a loading state initially", async () => {
-    useSearchUsers.mockReturnValue({
+    useSearchUsersMock.mockReturnValue({
       isLoading: true,
+      data: undefined,
+      isError: false
     });
 
     render(
@@ -22,8 +26,9 @@ describe("SearchResult", () => {
   });
 
   it("renders an error message if the search fails", async () => {
-    useSearchUsers.mockReturnValue({
+    useSearchUsersMock.mockReturnValue({
       isLoading: false,
+      isError: true,
       data: {
         message: "Request Failed",
       },
@@ -42,8 +47,9 @@ describe("SearchResult", () => {
   });
 
   it("renders a No User Found message if no search results are found", async () => {
-    useSearchUsers.mockReturnValue({
+    useSearchUsersMock.mockReturnValue({
       isLoading: false,
+      isError: false,
       data: {
         total_count: 0,
         items: [],
@@ -58,6 +64,27 @@ describe("SearchResult", () => {
 
     const noUserFoundElement = await screen.findByText("No User Found");
     expect(noUserFoundElement).toBeInTheDocument();
+  });
+
+  it("renders template search message if no search query present", async () => {
+    useSearchUsersMock.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      data: {
+        message: "Validation Failed",
+      },
+    });
+
+    render(
+      <MemoryRouter initialEntries={["/search?q="]}>
+        <SearchResult />
+      </MemoryRouter>
+    );
+
+    const messageElement = await screen.findByText(
+      "Search more than 110M users"
+    );
+    expect(messageElement).toBeInTheDocument();
   });
 
   it("renders the search results when data is fetched successfully", async () => {
@@ -77,8 +104,9 @@ describe("SearchResult", () => {
       ],
     };
 
-    useSearchUsers.mockReturnValue({
+    useSearchUsersMock.mockReturnValue({
       isLoading: false,
+      isError: false,
       data: mockData,
     });
 
@@ -114,8 +142,9 @@ describe("SearchResult", () => {
       ],
     };
 
-    useSearchUsers.mockReturnValue({
+    useSearchUsersMock.mockReturnValue({
       isLoading: false,
+      isError: false,
       data: mockData,
     });
 
@@ -153,8 +182,9 @@ describe("SearchResult", () => {
       ],
     };
 
-    useSearchUsers.mockReturnValue({
+    useSearchUsersMock.mockReturnValue({
       isLoading: false,
+      isError: false,
       data: mockData,
     });
 

@@ -1,17 +1,7 @@
 import { useEffect } from "react";
-import { useInfiniteQuery, InfiniteData, FetchNextPageOptions, InfiniteQueryObserverResult } from "react-query";
+import { useInfiniteQuery } from "react-query";
 import { useInView } from "react-intersection-observer";
-import { getUserRepos, UserRepo } from "../sdk/api/users";
-
-export interface UseUserRepos {
-  ref: (node?: Element | null) => void;
-  status: "idle" | "error" | "loading" | "success";
-  data: InfiniteData<UserRepo[]> | undefined;
-  error: Error | null;
-  isFetchingNextPage: boolean;
-  fetchNextPage: (options?: FetchNextPageOptions) => Promise<InfiniteQueryObserverResult<UserRepo[], Error>>;
-  hasNextPage: boolean | undefined;
-}
+import { getUserRepos, UserReposResponse } from "../sdk/api/users";
 
 export const useUserRepos = (username: string) => {
   const { ref, inView } = useInView();
@@ -23,7 +13,7 @@ export const useUserRepos = (username: string) => {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useInfiniteQuery<UserRepo[], Error>({
+  } = useInfiniteQuery<UserReposResponse, Error>({
     queryKey: ["user-repos", { username }],
     queryFn: ({ pageParam = 1 }) => getUserRepos(username, pageParam),
     getNextPageParam: (lastPage, pages) => {

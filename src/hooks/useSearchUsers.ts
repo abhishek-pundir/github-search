@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { getUsers } from "../sdk/api/users";
 
-export const useSearchUsers = (query, page) => {
+export const useSearchUsers = (query: string, page: number) => {
   const { isLoading, data, isError } = useQuery({
     queryKey: ["searchUsers", { query, page }],
     queryFn: () => getUsers(query, page),
