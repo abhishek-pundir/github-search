@@ -76,7 +76,6 @@ describe("Users API Fetch Functions", () => {
       // Call the function and wait for the Promise to resolve
       const response = await getUserByUsername(username);
 
-      expect(response.total_count).not.toBeDefined();
       expect(response.message).toBe("Request Failed");
     });
   });

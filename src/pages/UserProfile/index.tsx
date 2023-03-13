@@ -11,13 +11,13 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loader from "../../components/Loader";
 
 const UserProfile = () => {
-  const { username } = useParams();
+  const { username = "" } = useParams();
 
   const { isLoading, data } = useUserProfile(username);
 
   // Error and loading states
-  if (isLoading) return <Loader />;
-  if (data?.message) {
+  if (isLoading || !data) return <Loader />;
+  if (data.message) {
     const errorMessage =
       data.message === "Not Found" ? "User Not Found" : REQUEST_FAILED;
     return <ErrorMessage message={errorMessage} />;
@@ -29,7 +29,7 @@ const UserProfile = () => {
         <div className="profile-avatar">
           <img
             src={data.avatar_url}
-            alt={data.name + "'s Profile Picture"}
+            alt={data.name + " Profile Picture"}
             className="avatar"
           />
           <div className="username-wrapper">

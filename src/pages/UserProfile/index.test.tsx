@@ -5,11 +5,15 @@ import { useUserProfile, useUserRepos } from "../../hooks";
 
 jest.mock("../../hooks");
 
+const useUserProfileMock = useUserProfile as jest.MockedFunction<typeof useUserProfile>;
+const useUserReposMock = useUserRepos as jest.MockedFunction<typeof useUserRepos>;
+
 describe("UserProfile", () => {
   it("renders a loading state initially", async () => {
-    useUserProfile.mockReturnValue({
+    useUserProfileMock.mockReturnValue({
       isLoading: true,
-      data: null,
+      isError: false,
+      data: undefined,
     });
 
     render(
@@ -22,8 +26,9 @@ describe("UserProfile", () => {
   });
 
   it("renders error message if the request fails", async () => {
-    useUserProfile.mockReturnValue({
+    useUserProfileMock.mockReturnValue({
       isLoading: false,
+      isError: true,
       data: {
         message: "Request Failed",
       },
@@ -42,8 +47,9 @@ describe("UserProfile", () => {
   });
 
   it("renders correct error message when user is not found", async () => {
-    useUserProfile.mockReturnValue({
+    useUserProfileMock.mockReturnValue({
       isLoading: false,
+      isError: true,
       data: {
         message: "Not Found",
       },
@@ -62,6 +68,7 @@ describe("UserProfile", () => {
   it("renders the user profile when data is fetched successfully", async () => {
     const mockData = {
       avatar_url: "https://avatar.com",
+      html_url: "https://github.com/sample",
       name: "Abhishek",
       login: "abhishek-pundir",
       bio: "A software developer",
@@ -74,28 +81,37 @@ describe("UserProfile", () => {
       blog: "https://abhishekpundir.com",
     };
 
-    useUserProfile.mockReturnValue({
+    useUserProfileMock.mockReturnValue({
       isLoading: false,
+      isError: false,
       data: mockData,
     });
 
     const mockRepoData = {
-      status: "success",
+      ref: jest.fn(),
+      status: "success" as const,
       data: {
         pages: [
           [
-            { id: 1, name: "Repo 1" },
-            { id: 2, name: "Repo 2" },
+            {
+              id: 1,
+              name: "test-repo",
+              svn_url: "https://github.com/test/test-repo",
+              description: "A test repository",
+              language: "JavaScript",
+              stargazers_count: 10,
+              forks_count: 5,
+            },
           ],
-          [{ id: 3, name: "Repo 3" }],
         ],
+        pageParams: []
       },
       error: null,
       isFetchingNextPage: false,
       hasNextPage: true,
       fetchNextPage: jest.fn(),
     };
-    useUserRepos.mockReturnValue(mockRepoData);
+    useUserReposMock.mockReturnValue(mockRepoData);
 
     render(
       <MemoryRouter initialEntries={["/users/abhishek-pundir"]}>
@@ -104,11 +120,11 @@ describe("UserProfile", () => {
     );
 
     const userCountElement = await screen.findByAltText(
-      "Abhishek's Profile Picture"
+      "Abhishek Profile Picture"
     );
 
     expect(userCountElement).toBeInTheDocument();
-    expect(useUserProfile).toHaveBeenCalled();
+    expect(useUserProfileMock).toHaveBeenCalled();
     expect(screen.getByText("abhishek-pundir")).toBeInTheDocument();
     expect(screen.getByText("abhishek-pundir")).toBeInTheDocument();
     expect(screen.getByText("A software developer")).toBeInTheDocument();

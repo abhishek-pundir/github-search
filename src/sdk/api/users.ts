@@ -18,7 +18,7 @@ export interface SearchUsers {
 }
 
 export interface SearchError {
-  message: String;
+  message: string;
   total_count?: undefined;
   items?: undefined;
 }
@@ -43,12 +43,50 @@ export async function getUsers(query: string, page: number): Promise<SearchUsers
   return data;
 }
 
+export interface UserProfile {
+  avatar_url: string;
+  name: string | null;
+  html_url: string;
+  login: string;
+  bio: string | null;
+  public_repos: number;
+  following: number;
+  followers: number;
+  company: string | null;
+  location: string | null;
+  twitter_username: string | null;
+  blog: string | null;
+
+  message?: undefined;
+}
+
+export interface UserProfileError {
+  message: string;
+
+  avatar_url?: undefined;
+  name?: undefined;
+  html_url?: undefined;
+  login?: undefined;
+  bio?: undefined;
+  public_repos?: undefined;
+  following?: undefined;
+  followers?: undefined;
+  company?: undefined;
+  location?: undefined;
+  twitter_username?: undefined;
+  blog?: undefined;
+}
+
+export type UserProfileResponse =
+  | UserProfile
+  | UserProfileError;
+
 /**
  * Fetches user's Github profile data for the given username.
  * @param {string} username - GitHub username of the user whose details are to be fetched.
- * @returns {Promise} - Promise that resolves to a JSON data containing user details.
+ * @returns {Promise<UserProfileResponse>} - Promise that resolves to a JSON data containing user details.
  */
-export async function getUserByUsername(username: string) {
+export async function getUserByUsername(username: string): Promise<UserProfileResponse> {
   const response = await fetch(GITHUB_USER_PROFILE_URL + `${username}`);
 
   const data = await response.json();
