@@ -1,17 +1,54 @@
-import React from "react";
 import { render, screen } from "@testing-library/react";
-import { useUserRepos } from "../../hooks/useUserRepos";
+import { useUserRepos, UseUserRepos } from "../../hooks/useUserRepos";
 import UserRepoList from "./index";
 
 jest.mock("../../hooks/useUserRepos");
 
+const useUserReposMock = useUserRepos as jest.MockedFunction<typeof useUserRepos>;
+
+const mockRepoPages = [
+  [
+    {
+      id: 1,
+      name: "Repo 1",
+      svn_url: "url1",
+      description: null,
+      language: null,
+      stargazers_count: 0,
+      forks_count: 0,
+    },
+    {
+      id: 2,
+      name: "Repo 2",
+      svn_url: "url2",
+      description: null,
+      language: null,
+      stargazers_count: 0,
+      forks_count: 0,
+    },
+  ],
+  [
+    {
+      id: 3,
+      name: "Repo 3",
+      svn_url: "url3",
+      description: null,
+      language: null,
+      stargazers_count: 0,
+      forks_count: 0,
+    },
+  ],
+];
+
 describe("UserRepoList", () => {
   it("renders a loading state initially", () => {
-    useUserRepos.mockReturnValue({
+    useUserReposMock.mockReturnValue({
+      ref: jest.fn(),
       status: "loading",
-      data: null,
+      data: undefined,
       error: null,
       isFetchingNextPage: false,
+      fetchNextPage: jest.fn(),
       hasNextPage: false,
     });
 
@@ -21,11 +58,15 @@ describe("UserRepoList", () => {
   });
 
   it("renders error message if user repositories data fails to load", () => {
-    useUserRepos.mockReturnValue({
+    const mockError = new Error("Failed to load Repositories");
+
+    useUserReposMock.mockReturnValue({
+      ref: jest.fn(),
       status: "error",
-      data: null,
-      error: { message: "Failed to load Repositories" },
+      data: undefined,
+      error: mockError,
       isFetchingNextPage: false,
+      fetchNextPage: jest.fn(),
       hasNextPage: false,
     });
 
@@ -37,23 +78,19 @@ describe("UserRepoList", () => {
   });
 
   it("renders list of user repositories when data is loaded", () => {
-    const mockData = {
+    const mockData: UseUserRepos = {
+      ref: jest.fn(),
       status: "success",
       data: {
-        pages: [
-          [
-            { id: 1, name: "Repo 1" },
-            { id: 2, name: "Repo 2" },
-          ],
-          [{ id: 3, name: "Repo 3" }],
-        ],
+        pages: mockRepoPages,
+        pageParams: [],
       },
       error: null,
       isFetchingNextPage: false,
       hasNextPage: true,
       fetchNextPage: jest.fn(),
     };
-    useUserRepos.mockReturnValue(mockData);
+    useUserReposMock.mockReturnValue(mockData);
 
     render(<UserRepoList username="test" />);
 
@@ -64,23 +101,19 @@ describe("UserRepoList", () => {
   });
 
   it("renders loader while fetching next page", async () => {
-    const mockData = {
+    const mockData: UseUserRepos = {
+      ref: jest.fn(),
       status: "success",
       data: {
-        pages: [
-          [
-            { id: 1, name: "Repo 1" },
-            { id: 2, name: "Repo 2" },
-          ],
-          [{ id: 3, name: "Repo 3" }],
-        ],
+        pages: mockRepoPages,
+        pageParams: [],
       },
       error: null,
       isFetchingNextPage: true,
       hasNextPage: true,
       fetchNextPage: jest.fn(),
     };
-    useUserRepos.mockReturnValue(mockData);
+    useUserReposMock.mockReturnValue(mockData);
 
     render(<UserRepoList username="test" />);
 
