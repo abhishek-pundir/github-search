@@ -30,6 +30,7 @@ export const handlers = [
   rest.get(GITHUB_USER_PROFILE_URL + ":username", (req, res, ctx) => {
     const responseData = {
       avatar_url: "https://avatar.com",
+      html_url: "https://github.com/sample",
       name: "Abhishek",
       login: "abhishek-pundir",
       bio: "A software developer",
