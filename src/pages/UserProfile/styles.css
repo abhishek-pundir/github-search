@@ -92,7 +92,7 @@
     display: flex;
     flex-wrap: wrap;
     border-radius: 10px;
-    background-color: #f6f8fa;
+    background-color: var(--color-user-stats-bg);
     grid-area: stats;
     height: fit-content;
     padding: 16px;
