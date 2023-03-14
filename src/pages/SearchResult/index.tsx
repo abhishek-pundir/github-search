@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import { useSearchUsers } from "../../hooks";
 import { USER_SEARCH_PAGE_SIZE } from "../../sdk/constants";
-import { REQUEST_FAILED, NO_USER_FOUND } from "../../constants";
+import { REQUEST_FAILED, NO_USER_FOUND, TEMPLATE_SEARCH_MESSAGE } from "../../constants";
 import "./styles.css";
 
 import UserCard from "../../components/UserCard";
@@ -15,24 +15,27 @@ const SearchResult = () => {
   const [totalPage, setTotalPage] = useState(1);
 
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get("q");
+  const query = new URLSearchParams(location.search).get("q") ?? "";
 
-  const { isLoading, data } = useSearchUsers(query, page);
+  const { isLoading, data, isError } = useSearchUsers(query, page);
 
   useEffect(() => {
-    const totalPageCount = Math.ceil(data?.total_count / USER_SEARCH_PAGE_SIZE);
-    setTotalPage(totalPageCount);
+    if (data?.total_count) {
+      const totalPageCount = Math.ceil(data.total_count / USER_SEARCH_PAGE_SIZE);
+      setTotalPage(totalPageCount);
+    }
   }, [data?.total_count]);
 
   // Error and loading states
   if (isLoading) return <Loader />;
-  if (data?.message) return <ErrorMessage message={REQUEST_FAILED} />;
+  if (!query) return <ErrorMessage message={TEMPLATE_SEARCH_MESSAGE} />;
+  if (isError) return <ErrorMessage message={REQUEST_FAILED} />;
   if (data?.items?.length === 0)
     return <ErrorMessage message={NO_USER_FOUND} />;
 
   return (
     <div className="search-result">
-      <h3 className="result-count">{data.total_count} users</h3>
+      <h3 className="result-count">{data?.total_count} users</h3>
       <div className="list-wrapper">
         {data?.items?.map((item) => (
           <UserCard key={item?.id} data={item} />

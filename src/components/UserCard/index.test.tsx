@@ -11,6 +11,7 @@ jest.mock("react-router-dom", () => ({
 }));
 
 const mockUser = {
+  id: 1,
   login: "octocat",
   avatar_url: "https://avatars.githubusercontent.com/u/583231?v=4",
 };

@@ -8,25 +8,29 @@ jest.mock("../../sdk/api/users", () => ({
   getUserByUsername: jest.fn(),
 }));
 
+const getUserByUsernameMock = getUserByUsername as jest.MockedFunction<typeof getUserByUsername>;
+
+const mockUserProfileData = {
+  avatar_url: "https://avatar.com",
+  html_url: "https://github.com/sample",
+  name: "Test",
+  login: "testUser",
+  bio: "Software developer",
+  public_repos: 10,
+  following: 20,
+  followers: 30,
+  company: "Sample",
+  location: "World",
+  twitter_username: "sampleUser",
+  blog: "",
+};
+
 describe("useUserProfile", () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
   it("should return loading state true initially", async () => {
-    const mockData = {
-      avatar_url: "https://avatar.com",
-      name: "Test",
-      login: "testUser",
-      bio: "Software developer",
-      public_repos: 10,
-      following: 20,
-      followers: 30,
-      company: "Sample",
-      location: "World",
-      twitter_username: "sampleUser",
-      blog: "",
-    };
-    getUserByUsername.mockResolvedValue(mockData);
+    getUserByUsernameMock.mockResolvedValue(mockUserProfileData);
 
     const { result } = renderHook(() => useUserProfile("test"), {
       wrapper: createWrapper(),
@@ -38,20 +42,7 @@ describe("useUserProfile", () => {
   });
 
   it("should return user data after successful API call", async () => {
-    const mockData = {
-      avatar_url: "https://avatar.com",
-      name: "Test",
-      login: "testUser",
-      bio: "Software developer",
-      public_repos: 10,
-      following: 20,
-      followers: 30,
-      company: "Sample",
-      location: "World",
-      twitter_username: "sampleUser",
-      blog: "",
-    };
-    getUserByUsername.mockResolvedValue(mockData);
+    getUserByUsernameMock.mockResolvedValue(mockUserProfileData);
 
     const { result } = renderHook(() => useUserProfile("testUser"), {
       wrapper: createWrapper(),
@@ -64,7 +55,7 @@ describe("useUserProfile", () => {
 
     // Expect the state update after successful API call to contain the mock data
     await act(async () => {
-      expect(result.current.data).toEqual(mockData);
+      expect(result.current.data).toEqual(mockUserProfileData);
     });
   });
 
@@ -73,7 +64,7 @@ describe("useUserProfile", () => {
 
     const error = new Error("Failed to fetch user profile");
     error.message = "Not Found";
-    getUserByUsername.mockRejectedValue(error);
+    getUserByUsernameMock.mockRejectedValue(error);
 
     const { result } = renderHook(() => useUserProfile("rejectUser"), {
       wrapper: createWrapper(false),

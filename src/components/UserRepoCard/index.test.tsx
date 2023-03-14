@@ -4,7 +4,7 @@ import UserRepoCard from "./index";
 describe("UserRepoCard", () => {
   it("renders repo card correctly", () => {
     const repo = {
-      id: "1",
+      id: 1,
       name: "test-repo",
       svn_url: "https://github.com/test/test-repo",
       description: "A test repository",

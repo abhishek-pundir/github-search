@@ -15,10 +15,10 @@ const Header = () => {
     setIsRoot(isRootLocation);
 
     const query = new URLSearchParams(location.search).get("q");
-    setQuery(query);
+    setQuery(query ?? "");
   }, [location]);
 
-  function handleLogoClick(event) {
+  function handleLogoClick(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
     navigate("/");
   }
@@ -36,7 +36,7 @@ const Header = () => {
 
       {!isRoot && (
         <div className="header-left">
-          <SearchBar input={query ?? ""} />
+          <SearchBar input={query} />
         </div>
       )}
 

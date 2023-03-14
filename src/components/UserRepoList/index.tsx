@@ -5,7 +5,11 @@ import Loader from "../Loader";
 import ErrorMessage from "../ErrorMessage";
 import UserRepoCard from "../UserRepoCard";
 
-const UserRepoList = (props) => {
+interface UserRepoListProps {
+  username: string;
+}
+
+const UserRepoList = (props: UserRepoListProps) => {
   const { username } = props;
 
   const { ref, status, data, error, isFetchingNextPage, hasNextPage } =
@@ -14,7 +18,7 @@ const UserRepoList = (props) => {
   // Error and loading states
   if (status === "error")
     return (
-      <ErrorMessage message={`Failed to load Repositories ${error.message}`} />
+      <ErrorMessage message={`Failed to load Repositories ${error?.message}`} />
     );
   if (status === "loading")
     return (

@@ -2,13 +2,18 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
 
+interface SearchBarProps {
+  className?: string;
+  input?: string;
+}
+
 /**
  *
  * @param {string} props.className - CSS class name to apply to the rendered element.
  * @param {string} props.input - Search input
  * @returns {React.ReactElement}
  */
-const SearchBar = (props) => {
+const SearchBar = (props: SearchBarProps) => {
   let { className = "", input = "" } = props;
   const [query, setQuery] = useState(input);
 
@@ -19,7 +24,7 @@ const SearchBar = (props) => {
 
   let navigate = useNavigate();
 
-  function handleSubmit(event) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (query.trim() !== "") {
       navigate(`/search?q=${query.trim()}`);
