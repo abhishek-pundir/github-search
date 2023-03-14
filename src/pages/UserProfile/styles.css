@@ -55,6 +55,7 @@
     grid-area: bio;
     font-size: var(--rem-24px);
     line-height: 1.3;
+    word-break: break-word;
 }
 
 .username-wrapper {
