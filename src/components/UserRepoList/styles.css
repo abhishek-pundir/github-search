@@ -34,20 +34,20 @@
 }
 
 .repo-heading {
-    font-size: 18px;
+    font-size: var(--rem-18px);
     font-weight: 700;
     margin: 0;
 }
 
 .repo-description {
-    font-size: 14px;
+    font-size: var(--rem-14px);
     line-height: 1.3;
 }
 
 .repo-details {
     display: flex;
     gap: 16px;
-    font-size: 13px;
+    font-size: var(--rem-13px);
     font-weight: 600;
     margin-top: 16px;
 }

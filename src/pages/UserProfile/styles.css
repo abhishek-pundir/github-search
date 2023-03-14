@@ -53,7 +53,7 @@
 
 .bio {
     grid-area: bio;
-    font-size: 24px;
+    font-size: var(--rem-24px);
     line-height: 1.3;
 }
 
@@ -65,7 +65,7 @@
 
 .name-heading {
     text-align: center;
-    font-size: 24px;
+    font-size: var(--rem-24px);
     line-height: 1.25;
     margin: 0;
 }
@@ -74,7 +74,7 @@
     text-align: center;
     line-height: 24px;
     margin: 0;
-    font-size: 20px;
+    font-size: var(--rem-20px);
     font-weight: 300;
     color: var(--color-repo-caption);
 }
@@ -107,7 +107,7 @@
     justify-content: center;
     align-items: center;
 
-    font-size: 18px;
+    font-size: var(--rem-18px);
     font-weight: 700;
 }
 

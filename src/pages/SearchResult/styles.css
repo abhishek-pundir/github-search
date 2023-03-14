@@ -15,7 +15,7 @@
     justify-content: space-around;
     margin-top: 16px;
     padding-bottom: 32px;
-    font-size: 14px;
+    font-size: var(--rem-14px);
     font-weight: 700;
 }
 
